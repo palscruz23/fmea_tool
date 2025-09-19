@@ -36,9 +36,9 @@ class FailureMode(BaseModel):
     failure_cause: str = Field(description="Failure cause")
     failure_effect: str = Field(description="Failure effect")
     mitigation: Optional[str] = Field(description="Suggested mitigation")
-    severity: Severity
-    impact: str = Field(description="Impact description")
-    priority: int = Field(ge=1, le=10, description="Priority 1-10")
+    # severity: Severity
+    # impact: str = Field(description="Impact description")
+    # priority: int = Field(ge=1, le=10, description="Priority 1-10")
 
 class FailureModeResponse(BaseModel):
     failure_modes: List[FailureMode]
@@ -61,7 +61,9 @@ fm_agent = Agent(
 async def main():
     #
     st.set_page_config(page_title="Failure Mode And Effect Analysis Tool")
-    st.header("Roger the Reliability Engineer")
+    st.image("media/engineer.png")
+    st.header("Failure Mode And Effect Analysis Tool")
+
     # Clear all cached data
     st.cache_data.clear()
     st.cache_resource.clear()
@@ -74,23 +76,31 @@ async def main():
     os.environ['OPENAI_API_KEY'] = os.getenv('OPENAI_API_KEY')
 
     # query_text = "How to change a tire?"
-    query_text = st.text_input("Enter the equipment:", placeholder="Enter the equipment")
+    # query_text = st.text_input("Enter the equipment:", placeholder="Enter the equipment")
+
+    # equipment = st.radio(
+    #     "Which equipment would you like to check?",
+    #     ["Electric Motor", "Seals and Gaskets", "Pumps"])
+
+    equipment = st.selectbox(
+        "Which equipment would you like to generate a FMEA sheet?",
+        ["Electric Motor", "Seals and Gaskets", "Pumps", "Valves", "Bearings", "Compressors", "Actuators"])
 
     # Submit button
     if st.button("Submit"):
-        if query_text:
-            request, sources = query_rag(query_text, os.environ['OPENAI_API_KEY'])
-            print(query_text)
-            print(request)
-            # st.write("Directly from PDF:")
-            # st.write(request)
+        if equipment:
+            with st.spinner("Processing..."):
+                
+                request, sources = query_rag(equipment, os.environ['OPENAI_API_KEY'])
+                print(equipment)
+                print(request)
 
-            # run planner agent
-            st.write("Output:")
-            result = await Runner.run(
-                fm_agent,
-                request
-            )
+                # run planner agent
+                result = await Runner.run(
+                    fm_agent,
+                    request
+                )
+                st.write(f"FMEA for {equipment}")
             # st.write(result.final_output)
             # st.write(sources)
             # print(result.final_output)
@@ -102,33 +112,41 @@ async def main():
                 df[col] = df[col].astype(str)
             # st.dataframe(df)
 
-            # Set column configuration with text wrapping
-            column_config = {
-                "Failure Mode Description": st.column_config.TextColumn(
-                    "Failure Mode Description",
-                    width="large",  # Optional: 'small', 'medium', 'large'
-                    help="Description of the failure mode",
-                )
-            }
+            with st.container():
+                st.markdown("""
+                <style>
+                .stTable {
+                    width: 100%;
+                }
+                table {
+                    width: 100% !important;
+                    min-width: 600px;
+                    max-width: 1200px;
+                }
+                /* Set specific widths for each column */
+                table th:nth-child(1), table td:nth-child(1) { width: 4%; }  /* Column 1 */
+                table th:nth-child(2), table td:nth-child(2) { width: 6%; }  /* Column 2 */
+                table th:nth-child(3), table td:nth-child(3) { width: 15%; }  /* Column 3 */
+                table th:nth-child(4), table td:nth-child(4) { width: 25%; }  /* Column 4 */
+                table th:nth-child(5), table td:nth-child(5) { width: 25%; }  /* Column 5 */
+                table th:nth-child(6), table td:nth-child(5) { width: 25%; }  /* Column 6 */
+                
+                table th, table td {
+                    word-wrap: break-word;
+                    white-space: normal;
+                    padding: 8px;
+                }
+                </style>
+                """, unsafe_allow_html=True)
 
-            # Show in editor with wrapping
-            st.data_editor(
-                df,
-                column_config=column_config,
-                hide_index=True,
-                use_container_width=True,
-                disabled=True  # Makes it read-only like st.dataframe
-            )
+                st.table(df)
+
+            st.write("References:")
+            st.json(sources)
 
 
         else:
             st.warning("Please enter some text!")
-
-
-
-
-
-
 
 if __name__ == "__main__":
     asyncio.run(main())

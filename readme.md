@@ -1,0 +1,39 @@
+# FMEA Tool
+
+A tool for generating Failure Modes and Effects Analysis (FMEA) using Retrieval-Augmented Generation (RAG) and an agent-based workflow. It uses Chroma DB for vector storage of knowledge, retrieves context via RAG, and formats FMEA outputs per user specifications.
+
+
+## Architecture
+
+1. **Knowledge Base**  
+   Storage of domain texts, guidelines, prior FMEA examples etc. indexed as embeddings in Chroma DB.
+
+2. **RAG Module**  
+   Queries Chroma with user queries / prompts to fetch context relevant to the FMEA instance.
+
+3. **Agent**  
+   Uses the RAG-provided context plus user inputs to generate the FMEA. Handles structure, formatting, maybe validation.
+
+4. **Output Formatter**  
+   Produces the final FMEA in the format that the user desires (table, JSON, etc.).
+
+<Insert architecture>
+
+---
+
+## Getting Started
+
+### Installation
+
+```bash
+git clone https://github.com/palscruz23/fmea_tool.git
+cd fmea_tool
+pip install -r requirements.txt
+python functions/populate_database.py # Generate vector from knowledge base chunks
+streamlit run troubleshooting_tool.py # Open streamlit app for interface
+```
+Create .env file and enter OPENAI_API_KEY
+
+## Demo
+
+ ![FMEA Tool](media/fmea.gif)

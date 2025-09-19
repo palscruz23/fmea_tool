@@ -53,14 +53,14 @@ def parse_failure_modes_to_dataframe(json_data):
         parsed = {}
 
         # Extract fields
-        parsed['id'] = fm_string.id
-        parsed['failure_mode'] = fm_string.failure_mode
-        parsed['failure_cause'] = fm_string.failure_cause
-        parsed['failure_effect'] = fm_string.failure_effect
-        parsed['mitigation'] = fm_string.mitigation
-        parsed['severity'] = fm_string.severity
-        parsed['impact'] = fm_string.impact
-        parsed['priority'] = fm_string.priority
+        parsed['ID'] = fm_string.id
+        parsed['Failure mode'] = fm_string.failure_mode
+        parsed['Failure cause'] = fm_string.failure_cause
+        parsed['Failure effect'] = fm_string.failure_effect
+        parsed['Mitigation'] = fm_string.mitigation
+        # parsed['severity'] = fm_string.severity
+        # parsed['impact'] = fm_string.impact
+        # parsed['priority'] = fm_string.priority
 
         # parsed['name'] = re.search(r"name='([^']*)'", fm_string).group(1)
         # parsed['description'] = re.search(r"description='([^']*)'", fm_string).group(1)

@@ -45,7 +45,7 @@ def query_rag(query: str, key: str):
 
     # Search the DB.
     query_context = f"What are the failure modes of a {query}? and how do they happen?"
-    results = db.similarity_search_with_score(query_context, k=5)
+    results = db.similarity_search_with_score(query_context, k=8)
 
     context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
     prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
