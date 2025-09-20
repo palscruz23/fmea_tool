@@ -51,7 +51,7 @@ def query_rag(query: str, key: str):
     prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
     prompt = prompt_template.format(context=context_text, query=query)
 
-    model = ChatOpenAI(model_name= "gpt-4o", api_key=key)
+    model = ChatOpenAI(model_name= "gpt-5", api_key=key)
     response_text = model.invoke(prompt)
 
     sources = [doc.metadata.get("id", None) for doc, _score in results]
