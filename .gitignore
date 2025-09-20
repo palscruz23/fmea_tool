@@ -4,5 +4,5 @@
 .env.development
 .env.production
 functions/chroma/
-functions/knowledge base/manual
+knowledge base/manual/
 prompt instructions/parts_identifier.md

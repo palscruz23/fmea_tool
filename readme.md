@@ -17,8 +17,8 @@ A tool for generating Failure Modes and Effects Analysis (FMEA) using Retrieval-
 4. **Output Formatter**  
    Produces the final FMEA in the format that the user desires (table, JSON, etc.).
 
-<Insert architecture>
-
+ ![FMEA Tool](media/flow.svg)
+<img src="media/flow.png" width="auto"/>
 ---
 
 ## Getting Started
@@ -30,7 +30,7 @@ git clone https://github.com/palscruz23/fmea_tool.git
 cd fmea_tool
 pip install -r requirements.txt
 python functions/populate_database.py # Generate vector from knowledge base chunks
-streamlit run troubleshooting_tool.py # Open streamlit app for interface
+streamlit run fmea_tool.py # Open streamlit app for interface
 ```
 Create .env file and enter OPENAI_API_KEY
 
