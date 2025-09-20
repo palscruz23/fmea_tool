@@ -21,7 +21,7 @@ import json
 # Load environment variables
 load_dotenv(find_dotenv())
 
-# os.environ['OPENAI_API_KEY'] = st.secrets['OPENAI_API_KEY']
+# os.environ['LLM_API_KEY'] = st.secrets['LLM_API_KEY']
 
 
 # Planner Agent
@@ -72,8 +72,8 @@ async def main():
     if 'query_history' not in st.session_state:
         st.session_state.query_history = []
 
-    # os.environ['OPENAI_API_KEY'] = st.secrets['OPENAI_API_KEY']
-    os.environ['OPENAI_API_KEY'] = os.getenv('OPENAI_API_KEY')
+    # os.environ['LLM_API_KEY'] = st.secrets['LLM_API_KEY']
+    os.environ['LLM_API_KEY'] = os.getenv('LLM_API_KEY')
 
     # query_text = "How to change a tire?"
     # query_text = st.text_input("Enter the equipment:", placeholder="Enter the equipment")
@@ -91,7 +91,7 @@ async def main():
         if equipment:
             with st.spinner("Processing..."):
                 
-                request, sources = query_rag(equipment, os.environ['OPENAI_API_KEY'])
+                request, sources = query_rag(equipment, os.environ['LLM_API_KEY'])
                 print(equipment)
                 print(request)
 

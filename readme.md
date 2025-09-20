@@ -12,10 +12,7 @@ A tool for generating Failure Modes and Effects Analysis (FMEA) using Retrieval-
    Queries Chroma with user queries / prompts to fetch context relevant to the FMEA instance.
 
 3. **Agent**  
-   Uses the RAG-provided context plus user inputs to generate the FMEA. Handles structure, formatting, maybe validation.
-
-4. **Output Formatter**  
-   Produces the final FMEA in the format that the user desires (table, JSON, etc.).
+   Uses the RAG-provided context plus user inputs to generate the FMEA Worksheet. Handles structure, formatting, maybe validation.
 
  ![FMEA Tool](media/flow.svg)
 ---
@@ -31,7 +28,7 @@ pip install -r requirements.txt
 python functions/populate_database.py # Generate vector from knowledge base chunks
 streamlit run fmea_tool.py # Open streamlit app for interface
 ```
-Create .env file and enter OPENAI_API_KEY
+Create .env file and enter LLM_API_KEY
 
 ## Demo
 
