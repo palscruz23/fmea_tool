@@ -18,7 +18,6 @@ A tool for generating Failure Modes and Effects Analysis (FMEA) using Retrieval-
    Produces the final FMEA in the format that the user desires (table, JSON, etc.).
 
  ![FMEA Tool](media/flow.svg)
-<img src="media/flow.png" width="auto"/>
 ---
 
 ## Getting Started
