@@ -3,6 +3,6 @@
 .env.local
 .env.development
 .env.production
-env/
-venv/
 functions/chroma/
+functions/knowledge base/manual/
+prompt instructions/parts_identifier.md
